@@ -11,46 +11,14 @@ import javax.persistence.TypedQuery;
  *
  * @author aluno
  */
-public class CategoriaDAO {
+public class CategoriaDAO extends AbstractDAO<Categoria> {
 
-    private EntityManagerFactory emf;
-
-    public CategoriaDAO() {
-        emf = Persistence
-                .createEntityManagerFactory("aula1PU");
-    }
-
-    private EntityManager getEntityManager() {
-        return this.emf.createEntityManager();
-    }
-
-    public void inserir(Categoria categoria) {
-        EntityManager em = getEntityManager();
-
-        em.getTransaction().begin();
-        em.persist(categoria);
-        em.getTransaction().commit();
-
-        em.close();
-    }
-
-    public void alterar(Categoria categoria) {
-        EntityManager em = getEntityManager();
-
-        em.getTransaction().begin();
-        em.merge(categoria);
-        em.getTransaction().commit();
-
-        em.close();
-    }
-    
     public List<Categoria> buscar() {
         TypedQuery<Categoria> query = getEntityManager()
-                .createQuery("SELECT c FROM Categoria c", 
+                .createQuery("SELECT c FROM Categoria c",
                         Categoria.class);
-        
+
         return query.getResultList();
     }
-    
 
 }

@@ -11,50 +11,18 @@ import javax.persistence.TypedQuery;
  *
  * @author aluno
  */
-public class ProdutoDAO {
+public class ProdutoDAO extends AbstractDAO<Produto> {
 
-    private EntityManagerFactory emf;
-
-    public ProdutoDAO() {
-        emf = Persistence
-                .createEntityManagerFactory("aula1PU");
-    }
-
-    private EntityManager getEntityManager() {
-        return this.emf.createEntityManager();
-    }
-
-    public void inserir(Produto produto) {
-        EntityManager em = getEntityManager();
-
-        em.getTransaction().begin();
-        em.persist(produto);
-        em.getTransaction().commit();
-
-        em.close();
-    }
-
-    public void alterar(Produto produto) {
-        EntityManager em = getEntityManager();
-
-        em.getTransaction().begin();
-        em.merge(produto);
-        em.getTransaction().commit();
-
-        em.close();
-    }
-    
     public List<Produto> buscar() {
         //JPQL
         //Sempre pensar em classe
-        
+
         //SELECT p FROM Produto p  
         TypedQuery<Produto> query = getEntityManager()
-                .createQuery("SELECT p FROM Produto p", 
+                .createQuery("SELECT p FROM Produto p",
                         Produto.class);
-        
+
         return query.getResultList();
     }
-    
 
 }
